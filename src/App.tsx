@@ -41,8 +41,9 @@ const App: Component = () => {
         onInput={(e) => setState('amount', e.currentTarget.value)}
         hasError={amountHasError()}
       />
-      <br />
-      <QRCode qrData={qr} />
+      <div class="mt-4">
+        <QRCode qrData={qr} />
+      </div>
     </div>
   );
 };
