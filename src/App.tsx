@@ -68,7 +68,7 @@ const App: Component = () => {
       />
       <div class="mt-4">
         <Show when={qr() !== null}>
-          <QRCode qrData={qr} />
+          <QRCode qrData={qr()} />
         </Show>
       </div>
     </div>
