@@ -8,8 +8,8 @@ interface AppStore {
 
 const storageKey = 'appStore';
 
-export function createAppStore() {
-  const [state, setState] = createStore<AppStore>(getInitialValue());
+export function createAppStore(initialValue: AppStore) {
+  const [state, setState] = createStore<AppStore>(initialValue);
 
   createEffect(() => {
     const { promptpayId, amount } = state;
@@ -19,7 +19,7 @@ export function createAppStore() {
   return [state, setState] as const;
 }
 
-function getInitialValue(): AppStore {
+export function getInitialValue(): AppStore {
   const storedValue = localStorage.getItem(storageKey);
   if (storedValue) {
     return JSON.parse(storedValue);
