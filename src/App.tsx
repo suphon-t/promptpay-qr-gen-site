@@ -61,11 +61,12 @@ const App: Component = () => {
       <Input
         class="mt-4"
         type="number"
-        pattern="^\d*(\.\d{0,2})?$"
+        pattern="\\d*"
         placeholder="Amount"
         hasError={amountHasError()}
         value={initialValue.amount}
         onInput={(e) => setState('amount', e.currentTarget.value)}
+        inputmode="decimal"
       />
       <div class="mt-4">
         <Show when={qr() !== null}>
