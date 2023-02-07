@@ -1,14 +1,15 @@
 import { Component, createMemo, createSignal, Show } from 'solid-js';
-import { createAppStore } from './store';
+import { createAppStore, getInitialValue } from './store';
 import { generate } from 'promptparse/dist/generators/promptpay/AnyID';
 import { QRCode } from './QRCode';
 import { Input } from './Input';
 
 const promptpayIdPattern = /\d{8,15}/;
-const amountPattern = /d*/;
+const amountPattern = /^\d*(\.\d{0,2})?$/;
 
 const App: Component = () => {
-  const [state, setState] = createAppStore();
+  const initialValue = getInitialValue();
+  const [state, setState] = createAppStore(initialValue);
   const [editing, setEditing] = createSignal(
     !promptpayIdPattern.test(state.promptpayId)
   );
@@ -63,8 +64,9 @@ const App: Component = () => {
         pattern="\\d*"
         placeholder="Amount"
         hasError={amountHasError()}
-        value={state.amount}
+        value={initialValue.amount}
         onInput={(e) => setState('amount', e.currentTarget.value)}
+        inputmode="decimal"
       />
       <div class="mt-4">
         <Show when={qr() !== null}>
